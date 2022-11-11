@@ -1,0 +1,49 @@
+\subsection{Gleichmäßige Formel}
+Die angepasste Formel f"ur gleichm"aßige Beschleunigung berechnete
+die Distanz in meinen Versuchen mit einer Genauigkeit von
+$\pm8$ cm auf 30cm Teststrecke.\\
+Die physikalische Formel für Bewegungen mit einer Anfangsgeschwindigkeit lautet 
+$s + v * t  + a * t^2 * 0.5$,
+allerdings wurden mit dem leicht verändertem Weg-Zeit-Gesetz $s + a * t^2 * 0.5$ 
+bessere Testergebnisse erzielt.\\
+Da die negative Beschleunigung den Wert der Distanz wieder nullierte,
+wurden zu dieser Formel nur positive Distanzmessungen zugelassen.\\
+Hier der Code-Ausschnitt:
+\begin{verbatim}
+    if (acc > 0) {
+    t = (freq / 1000); //hz is not time but frequenzy
+
+    distance = (distance) + (acc * (t * t) * 0.5);
+    velocity = acc * t;
+    }
+\end{verbatim}
+F"ur die Tests wurde dieser Code statt der BLE-"Ubetragung auf dem Arduino ausgef"uhrt. 
+
+\subsection{Integral}
+Die Berechnung der Distanz über Integrale ist der Standard 
+in der Wissenschaft. Beim integrieren meiner Sensordaten ist zu beachten, 
+das beim mathematischen Integrieren die zu berechnenden Werte gegen den Limes 
+laufen können. Da ich nur begrenzete Datenmengen zur Verfügung habe, ist dies 
+nicht möglich, wodurch allein das Integrieren Fehler erzeugt. Ebenfalls wird das 
+Rauschen meines Sensors nicht beachtet und aufaddiert. Da ich zwei mal integrieren 
+muss, ist dieser Fehler in der Distanz exponentiell.\\
+\\
+Die Testergebnisse ergaben einen Fehler von $\pm15$cm auf einer Strecke
+von 30cm. Ebenso war das Ergebnis sofort in Zentimetern, statt wie erwartet in Metern. 
+Wurde der Sensor zurückbewegt an seinen Startpunkt, sank
+der Wert jedoch wieder auf Null ab. Somit kann man schließen,
+dass das Ergebniss nur falsch skaliert ist.\\
+Dieser Fehler wurde noch nicht behoben. \\
+Ein klarer Vorteil dieser Rechnung zeigt sich schon beim Test,
+die Formel funktioniert auch für negative Beschleunigungen.
+Der Wert sinkt am Ende der Teststrecke nicht ab, sondern bleibt
+auf seinem hohen Wert.\\
+Folgend der Code-Ausschnitt der Integral-Rechnung:
+\begin{verbatim}
+    t = (freq / 1000); // hz to time
+
+    velocity = t * ((acc + accOld) / 2) + velocity;
+    accOld = acc;
+    distance = t * ((velocity + velocityOld) / 2) + distance;
+    velocityOld = velocity;  
+\end{verbatim}

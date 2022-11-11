@@ -1,0 +1,133 @@
+%\documentclass[11pt, titlepage]{scrreprt}
+\documentclass[12pt, titlepage, parskip=half-]{scrreprt}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage{float}
+\usepackage[a4paper,lmargin={2.5cm},rmargin={2.5cm},tmargin={2.5cm},bmargin = {2cm},footskip={1cm}]{geometry}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{wrapfig}
+\usepackage{calc}
+\usepackage{overcite} 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tabularx}
+\usepackage{siunitx}
+\usepackage[official]{eurosym}
+\usepackage{url}
+
+% Seminararbeit 
+\usepackage[onehalfspacing]{setspace}
+
+\renewcommand\citeform[1]{[#1]}
+
+\RedeclareSectionCommand[
+  style=section,
+  %indent=0pt,% kann ab KOMA-Script Version 3.24 weggelassen werden (Overleaf hat noch eine ältere Version)
+  beforeskip = -1\baselineskip plus -1ex minus -.2ex,
+  afterskip = 0.25\baselineskip plus -1sp minus 1sp,
+  font = \LARGE,
+]{chapter}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+% !TEX program = xelatex
+\begin{document}
+% \include{Title}
+\begin{titlepage}
+  \title{Archer-Tracking}
+  \subtitle{Bewegungstracking für Bogensch"utzen}
+  \titlehead{\centering\includegraphics[width=9cm]{Bilder/IMG_9973 (4)}}
+  
+  \author{Projekt von Antonio Rehwinkel}
+  \publishers{ Angefertigt am Schiller-Gymnasium Offenburg \\
+    \vspace*{2ex} Unterstützende Lehrer:\\ Herr Czernohous, Herr Dierle\\
+    \vspace*{2ex} und Mitarbeiter der Hochschule Offenburg:\\ R. Hilterhaus, R. Echle\\
+    
+    %\vspace*{2ex} \input{abstract}\\
+    
+  }
+  \date{\today}
+\end{titlepage}
+
+\maketitle
+
+\tableofcontents
+\include{abstract.tex}
+\include{Vorwort}
+
+%\chapter{IMU vs Kameratracking}
+%\input{Imu_vs_Kameratracking}
+\chapter{Hardware}
+\section{Arduino Nano 33 BLE}
+\input{Arduino}
+\section{MPU9250}
+\input{MPU9250}
+
+\chapter{Bluetooth-Low-Energy}
+\input{Ble}
+
+\chapter{Analyse und Visualisierung}
+\input{BewAnalSys}
+
+\chapter{Software}
+Die Anzeige der Daten erfolgt am Handy, hier habe ich genug Rechenpower,
+nicht nur Nachkommastellen genau zu berechnen, sondern auch um 
+visuelle Darstellungen zu erzeugen. Die Daten werden hierfür über das bereits
+erklärte BLE an das Handy gesendet.
+Somit brauchte ich sowohl eine Android-App als auch ein Programm für den Arduino. \\ 
+Momentan werden ebenfalls Computer-Programme wie Matlab und OpenSim zur Visualisierung benötigt.
+\section{3D-Visualisierung}
+\input{OpenSimNMatlab}
+\section{Datenübertragung}
+\input{Datenübertragung}
+\section{Arduino Firmware}
+\input{ArdFirmware}
+\section{Android-App}
+\input{AndroidApp}
+\chapter{Benötigte Leistung}
+\input{Strom}
+
+\chapter{Tests}
+\input{distMess}
+%\chapter{Machine Learning}
+%\section{Datenauswahl und Dimensionen}
+%\input{MLData}
+%\section{Modell und Funktion}
+%\input{MLModNFunk}
+\chapter{Ergebnissdiskussion}
+\input{ergebnisdis}
+\chapter{Fazit}
+\input{Fazit}
+\newpage
+\chapter{Danksagung}
+\input{Danksagung}
+\chapter{Quellen}
+\input{sources}
+
+% Seminararbeit
+\newpage
+\chapter{Selbständigkeitserklärung}
+Hiermit erkläre ich, dass die vorliegende Arbeit selbstständig 
+und ohne fremde Hilfe verfasst habe und auch keine anderen Hilfsmittel 
+als die angegebenen verwendet habe. Insbesondere versichere ich, 
+dass ich alle wörtlichen und sinngemäßen Übernahmen aus anderen 
+Werken als solche kenntlich gemacht habe.\\
+\\
+\noindent\begin{tabular}{ll}
+  \makebox[2.5in]{\hrulefill} & \makebox[2.5in]{\hrulefill}\\
+  Unterschrift Schüler & Datum\\[8ex]% adds space between the two sets of signatures
+\end{tabular}
+
+\end{document}
